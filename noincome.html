@@ -1,0 +1,35 @@
+<?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+include "db.php";
+
+$lastName = $_POST['last_name'] ?? '';
+$firstName = $_POST['first_name'] ?? '';
+$middleInitial = $_POST['middle_initial'] ?? '';
+
+$name = $lastName . ", " . $firstName . " " . $middleInitial . ".";
+
+$age = $_POST['age'] ?? '';
+$age = (int) ($_POST['age'] ?? 0);
+
+if ($age >= 18) {
+    $ageStatus = "of legal age";
+} else {
+    $ageStatus = "a minor";
+}
+$citizenship = $_POST['citizenship'] ?? '';
+$purok = $_POST['purok'] ?? '';
+$purpose = $_POST['purpose'] ?? '';
+
+
+$sql = "INSERT INTO indigency_requests (last_name, first_name, middle_initial, age, citizenship, purok, purpose) 
+        VALUES ('$lastName', '$firstName', '$middleInitial', '$age', '$citizenship', '$purok', '$purpose')";
+
+if (mysqli_query($conn, $sql)) {
+    header("Location: certificate.php?id=" . mysqli_insert_id($conn));
+    exit();
+} else {
+    echo mysqli_error($conn);
+}
+?>

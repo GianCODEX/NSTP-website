@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Barangay Indigency Form</title>
+    <link rel="stylesheet" href="../barangay/css/formStyle.css">
+</head>
+
+<body>
+
+<div class="main-container">
+    <div class="form-card">
+        <div class="title">
+        <h2>Barangay Indigency Request</h2>
+        </div>
+        
+        <form action="success.php" method="POST">
+            <div class="form-group">
+                <label>Last Name</label>
+                <input type="text" name="last_name" oninput="capitalizeName(this)" placeholder="Enter Last Name" required>
+            </div>
+
+            <div class="form-group">
+                <label>First Name</label>
+                <input type="text" name="first_name" oninput="capitalizeName(this)" placeholder="Enter First Name" required>
+            </div>
+
+            <div class="form-group">
+                <label>Middle Initial</label>
+                <div class="inline-input-row">
+                    <input type="text" name="middle_initial" maxlength="1" oninput="this.value = this.value.toUpperCase()">
+                    <div class="enye-buttons">
+                        <button type="button" onclick="handleEnye(this, 'Ñ')">Ñ</button>
+                        <button type="button" onclick="handleEnye(this, 'ñ')">ñ</button>
+                    </div>
+                </div>
+            </div>
+<br>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Age</label>
+                    <input type="number" name="age" id="age" required>
+                    <small id="ageStatus" class="age-status"></small>
+                </div>
+                <div class="form-group">
+                    <label>Citizenship</label>
+                    <input type="text" name="citizenship" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Purok</label>
+                <input type="text" name="purok" required>
+            </div>
+
+            <div class="form-group">
+                <label>Purpose</label>
+                <textarea name="purpose" rows="3" required></textarea>
+            </div>
+
+            <button type="submit" class="btn-primary">Submit Request</button>
+        </form>
+    </div>
+    <div class ="sidebar">
+        <a href="../choose.php"> Home </a>
+        <a href="../aboutus.php"> About Us </a>
+        <a href="../index.php"> Logout </a>
+        <a href="../view.php"> Dashboard </a>
+    </div>
+<br>
+</div>
+
+<script>
+function capitalizeName(input) {
+    let value = input.value;
+
+    if (value.length === 0) return;
+
+    input.value =
+        value.charAt(0).toUpperCase() +
+        value.slice(1).toLowerCase();
+}
+</script>
+
+<script>
+function capitalizeName(input) {
+    const start = input.selectionStart;
+    const end = input.selectionEnd;
+
+    let words = input.value.toLowerCase().split(" ");
+
+    for (let i = 0; i < words.length; i++) {
+        if (words[i].length > 0) {
+            words[i] =
+                words[i].charAt(0).toUpperCase() +
+                words[i].slice(1);
+        }
+    }
+
+    input.value = words.join(" ");
+    input.setSelectionRange(start, end);
+}
+</script>
+<script>
+let lastInput = null;
+
+// remember the last clicked input
+document.addEventListener("click", function (e) {
+    if (e.target.tagName === "INPUT" && e.target.type === "text") {
+        lastInput = e.target;
+    }
+});
+
+function insertChar(char) {
+    if (!lastInput) {
+        alert("Click a name field first");
+        return;
+    }
+
+    const start = lastInput.selectionStart;
+    const end = lastInput.selectionEnd;
+    const value = lastInput.value;
+
+    lastInput.value =
+        value.substring(0, start) + char + value.substring(end);
+
+    lastInput.selectionStart = lastInput.selectionEnd = start + 1;
+    lastInput.focus();
+}
+</script>
+
+<script>
+function handleEnye(btn, char) {
+    if (!lastInput) {
+        alert("Click a name field first");
+        return;
+    }
+
+    const start = lastInput.selectionStart;
+    const end = lastInput.selectionEnd;
+    const value = lastInput.value;
+
+    lastInput.value =
+        value.substring(0, start) + char + value.substring(end);
+
+    lastInput.selectionStart = lastInput.selectionEnd = start + 1;
+    lastInput.focus();
+
+    // disable button after one click
+    btn.disabled = true;
+    btn.style.opacity = "0.5";
+    btn.style.cursor = "not-allowed";
+
+    // watch for input changes to re-enable button if field is cleared
+    lastInput.addEventListener("input", function enableButton() {
+        if (lastInput.value.length === 0) {
+            btn.disabled = false;
+            btn.style.opacity = "1";
+            btn.style.cursor = "pointer";
+        }
+    }, { once: false });
+}
+</script>
+
+<script>
+document.getElementById("age").addEventListener("input", function () {
+    const age = parseInt(this.value);
+    const status = document.getElementById("ageStatus");
+
+    if (isNaN(age)) {
+        status.textContent = "";
+    } else if (age >= 18) {
+        status.textContent = "of legal age";
+        status.style.color = "green";
+    } else {
+        status.textContent = "minor";
+        status.style.color = "red";
+    }
+});
+</script>
+</body>
+</html>

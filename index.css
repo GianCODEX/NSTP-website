@@ -1,0 +1,96 @@
+/* ===== Container ===== */
+.main-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 30px;
+    background: #f9fafb; /* light gray background */
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ===== Form Headings ===== */
+.main-container h2 {
+    text-align: center;
+    color: #111827;
+    margin-bottom: 25px;
+    font-size: 28px;
+}
+
+/* ===== Form Fields ===== */
+form label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #374151;
+}
+
+form input[type="text"],
+form input[type="number"],
+form textarea {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 18px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+form input:focus,
+form textarea:focus {
+    border-color: #2563eb; /* blue highlight */
+    box-shadow: 0 0 0 2px rgba(37,99,235,0.2);
+    outline: none;
+}
+
+/* ===== Textarea ===== */
+form textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* ===== Buttons ===== */
+button.btn-primary {
+    background-color: #2563eb;
+    color: #fff;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+button.btn-primary:hover {
+    background-color: #1e40af;
+}
+
+a.btn-secondary {
+    text-decoration: none;
+    background-color: #e5e7eb;
+    color: #374151;
+    padding: 12px 18px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: background 0.2s;
+}
+
+a.btn-secondary:hover {
+    background-color: #d1d5db;
+}
+
+/* ===== Form Layout ===== */
+form label + input,
+form label + textarea {
+    margin-bottom: 18px;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 640px) {
+    .main-container {
+        margin: 20px;
+        padding: 20px;
+    }
+}
